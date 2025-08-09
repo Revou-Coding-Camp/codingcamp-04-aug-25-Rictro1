@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaTasks - To‑Do Manager</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#0f1322" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="description" content="A clean, modern to‑do manager with filters and due dates." />
+  <meta name="robots" content="noindex,nofollow" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <h1 class="brand-title">NovaTasks</h1>
+      </div>
+      <div class="header-stats">
+        <div class="stat"><span id="totalTasks">0</span><label>Total</label></div>
+        <div class="stat"><span id="completedTasks">0</span><label>Completed</label></div>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="card form-card">
+        <form id="taskForm" class="form" autocomplete="off">
+          <div class="field">
+            <label for="taskInput">Task</label>
+            <input id="taskInput" type="text" placeholder="What do you need to do?" />
+          </div>
+          <div class="field">
+            <label for="dateInput">Due date</label>
+            <input id="dateInput" type="date" />
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary" id="addBtn">
+              Add Task
+            </button>
+          </div>
+        </form>
+
+        <div class="filters" id="filterBar" aria-label="Task filters">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="pending">Pending</button>
+          <button class="filter" data-filter="completed">Completed</button>
+          <button class="filter" data-filter="overdue">Overdue</button>
+          <button id="clearCompleted" class="btn btn-ghost small" title="Remove all completed tasks">Clear Completed</button>
+        </div>
+      </section>
+
+      <section class="card table-card">
+        <div class="table-wrap">
+          <table class="table" id="taskTable">
+            <thead>
+              <tr>
+                <th class="col-check">Done</th>
+                <th>Task</th>
+                <th>Due date</th>
+                <th>Status</th>
+                <th class="col-actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="taskList">
+              <tr class="empty">
+                <td colspan="5">
+                  <div class="empty-state">
+                    <div class="emoji" aria-hidden="true">🗒️</div>
+                    <h3>No tasks yet</h3>
+                    <p>Add your first task above to get started.</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
