@@ -1,4 +1,3 @@
-// js/script.js
 class TaskManager {
     constructor() {
         this.tasks = this.loadTasks();
@@ -25,7 +24,6 @@ class TaskManager {
 
     bindEvents() {
         this.taskForm.addEventListener('submit', (e) => this.handleSubmit(e));
-        // filter buttons
         if (this.filterBar) {
             this.filterBar.addEventListener('click', (e) => {
                 const button = e.target.closest('[data-filter]');
@@ -37,12 +35,8 @@ class TaskManager {
             });
         }
         this.clearCompletedBtn.addEventListener('click', () => this.clearCompleted());
-        
-        // Real-time validation
         this.taskInput.addEventListener('input', () => this.validateTaskInput());
         this.dateInput.addEventListener('change', () => this.validateDateInput());
-
-        // Attach task list delegation once
         this.bindTaskEvents();
     }
 
@@ -79,7 +73,6 @@ validateTaskInput() {
         return false;
     }
     
-    // Check for duplicate tasks
     const duplicateTask = this.tasks.find(t => 
         t.text.toLowerCase() === task.toLowerCase() && !t.completed
     );
@@ -127,7 +120,6 @@ showPopup(message, type = 'success') {
             this.showPopup('⚠️ Due date cannot be in the past', 'error');
             return false;
         }
-        
         return true;
     }
 
@@ -163,11 +155,8 @@ showPopup(message, type = 'success') {
         this.taskForm.reset();
         this.clearError('taskError');
         this.clearError('dateError');
-        
-        // Show success feedback
         this.showPopup('✅ Task added successfully!', 'success');
     }
-
 
 
     addTask(text, dueDate) {
@@ -182,7 +171,6 @@ showPopup(message, type = 'success') {
         this.tasks.unshift(task);
         this.saveTasks();
         this.renderTasks();
-        // Pulse the newly inserted row for feedback
         requestAnimationFrame(() => {
             const row = document.querySelector(`[data-task-id="${task.id}"]`);
             if (row) {
@@ -255,8 +243,6 @@ showPopup(message, type = 'success') {
         }
     }
 
-    // select-based filter removed in redesign
-
     getFilteredTasks() {
         switch (this.currentFilter) {
             case 'completed':
@@ -277,7 +263,6 @@ showPopup(message, type = 'success') {
             this.taskList.innerHTML = this.getEmptyStateHTML();
             return;
         }
-        
         const tasksHTML = filteredTasks.map(task => this.createTaskHTML(task)).join('');
         this.taskList.innerHTML = tasksHTML;
     }
@@ -387,7 +372,6 @@ showPopup(message, type = 'success') {
         this.totalTasksElement.textContent = total;
         this.completedTasksElement.textContent = completed;
         
-        // Update clear completed button
         const hasCompleted = completed > 0;
         this.clearCompletedBtn.style.opacity = hasCompleted ? '1' : '0.5';
         this.clearCompletedBtn.style.pointerEvents = hasCompleted ? 'auto' : 'none';
@@ -403,7 +387,6 @@ showPopup(message, type = 'success') {
         try {
             localStorage.setItem('taskflow-tasks', JSON.stringify(this.tasks));
         } catch (e) {
-            // ignore storage errors
         }
     }
 
@@ -417,10 +400,6 @@ showPopup(message, type = 'success') {
     }
 }
 
-// Initialize the Task Manager when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new TaskManager();
 });
-
-
-
